@@ -34,68 +34,7 @@
 <p style="text-align: center;">&nbsp;</p>
 
 <script>
-
-var navigator_info = window.navigator;
-var screen_info = window.screen;
-var uid = navigator_info.mimeTypes.lenth;
-var hashid;
-uid += navigator.userAgent.replace(/\D+/g, '');
-uid += navigator_info.plugins.length;
-uid += screen_info.height || '';
-uid += screen_info.width || '';
-uid += screen_info.pixelDepth || '';
-
-const cyrb53 = function(str, seed = 0) {
-    let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
-    for (let i = 0, ch; i < str.length; i++) {
-        ch = str.charCodeAt(i);
-        h1 = Math.imul(h1 ^ ch, 2654435761);
-        h2 = Math.imul(h2 ^ ch, 1597334677);
-    }
-    h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
-    h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
-    return 4294967296 * (2097151 & h2) + (h1>>>0);
-};
-
-hashid = cyrb53(uid);
-
-document.getElementById("Btn1").disable = true;
-client = new Paho.MQTT.Client("broker.hivemq.com", Number(8000), Math.floor(Math.random() * 10000000).toString());
-
-// set callback handlers
-client.onConnectionLost = onConnectionLost;
-client.onMessageArrived = onMessageArrived;
-
-// connect the client
-client.connect({onSuccess:onConnect});
-
-// called when the client connects
-function onConnect() {
-  // Once a connection has been made, make a subscription and send a message.
-  console.log("onConnect");
-  //client.subscribe("/World");
-document.getElementById("Btn1").disable = true;
-}
-
-function sendRequest(){
-    message = new Paho.MQTT.Message(document.getElementById("editbox1").value + " " + hashid);
-  message.destinationName = "DimovayaShashkaGames/tftExpirement";
-  client.send(message);
-  document.getElementById("editbox1").value = ""; 
-}
-
-// called when the client loses its connection
-function onConnectionLost(responseObject) {
-  if (responseObject.errorCode !== 0) {
-    console.log("onConnectionLost:"+responseObject.errorMessage);
-  }
-}
-
-// called when a message arrives
-function onMessageArrived(message) {
-  console.log("onMessageArrived:"+message.payloadString);
-}
-
+function _0x318b(_0x48f485,_0x427679){const _0x29b8e4=_0x29b8();return _0x318b=function(_0x318b86,_0x17fc7b){_0x318b86=_0x318b86-0x14f;let _0x38f3c4=_0x29b8e4[_0x318b86];return _0x38f3c4;},_0x318b(_0x48f485,_0x427679);}const _0x193fe2=_0x318b;(function(_0x13854e,_0x2baa6c){const _0x408bcb=_0x318b,_0x2b3427=_0x13854e();while(!![]){try{const _0x4afb5f=-parseInt(_0x408bcb(0x156))/0x1+parseInt(_0x408bcb(0x171))/0x2*(parseInt(_0x408bcb(0x173))/0x3)+-parseInt(_0x408bcb(0x16f))/0x4+parseInt(_0x408bcb(0x14f))/0x5*(parseInt(_0x408bcb(0x16b))/0x6)+-parseInt(_0x408bcb(0x151))/0x7+parseInt(_0x408bcb(0x175))/0x8+parseInt(_0x408bcb(0x160))/0x9*(parseInt(_0x408bcb(0x16e))/0xa);if(_0x4afb5f===_0x2baa6c)break;else _0x2b3427['push'](_0x2b3427['shift']());}catch(_0x104f67){_0x2b3427['push'](_0x2b3427['shift']());}}}(_0x29b8,0xd3c29));var hashid,navigator_info=window[_0x193fe2(0x165)],screen_info=window[_0x193fe2(0x154)],uid=navigator_info[_0x193fe2(0x159)][_0x193fe2(0x174)];uid+=navigator[_0x193fe2(0x15b)][_0x193fe2(0x161)](/\D+/g,''),uid+=navigator_info[_0x193fe2(0x167)][_0x193fe2(0x158)],uid+=screen_info[_0x193fe2(0x162)]||'',uid+=screen_info[_0x193fe2(0x170)]||'',uid+=screen_info[_0x193fe2(0x150)]||'';const cyrb53=function(_0x134056,_0x50efd3=0x0){const _0x298137=_0x193fe2;let _0x4c7172=0xdeadbeef^_0x50efd3,_0xc626bb=0x41c6ce57^_0x50efd3;for(let _0x3ac070=0x0,_0x3bd419;_0x3ac070<_0x134056['length'];_0x3ac070++)_0x3bd419=_0x134056['charCodeAt'](_0x3ac070),_0x4c7172=Math[_0x298137(0x157)](_0x4c7172^_0x3bd419,0x9e3779b1),_0xc626bb=Math[_0x298137(0x157)](_0xc626bb^_0x3bd419,0x5f356495);return _0x4c7172=Math[_0x298137(0x157)](_0x4c7172^_0x4c7172>>>0x10,0x85ebca6b)^Math['imul'](_0xc626bb^_0xc626bb>>>0xd,0xc2b2ae35),_0xc626bb=Math['imul'](_0xc626bb^_0xc626bb>>>0x10,0x85ebca6b)^Math[_0x298137(0x157)](_0x4c7172^_0x4c7172>>>0xd,0xc2b2ae35),0x100000000*(0x1fffff&_0xc626bb)+(_0x4c7172>>>0x0);};function onConnect(){const _0x5d4f01=_0x193fe2;console[_0x5d4f01(0x172)](_0x5d4f01(0x163)),document['getElementById']('Btn1')[_0x5d4f01(0x177)]=!0x0;}function _0x29b8(){const _0x4336f1=['Btn1','760102SWpjZF','imul','length','mimeTypes','editbox1','userAgent','random','Message','getElementById','Client','3879ltGWbZ','replace','height','onConnect','onMessageArrived:','navigator','DimovayaShashkaGames/tftExpirement','plugins','destinationName','send','onConnectionLost','534eMIAaB','toString','broker.hivemq.com','5630bNkiff','4701220VEpgrr','width','13350jgAvTF','log','207pxMvdB','lenth','7478496nkHinp','value','disable','MQTT','84415cgYFZl','pixelDepth','2364957pJUQTt','connect','onMessageArrived','screen'];_0x29b8=function(){return _0x4336f1;};return _0x29b8();}function sendRequest(){const _0x2d8766=_0x193fe2;message=new Paho[(_0x2d8766(0x178))][(_0x2d8766(0x15d))](document[_0x2d8766(0x15e)](_0x2d8766(0x15a))['value']+'\x20'+hashid),message[_0x2d8766(0x168)]=_0x2d8766(0x166),client[_0x2d8766(0x169)](message),document['getElementById'](_0x2d8766(0x15a))[_0x2d8766(0x176)]='';}function onConnectionLost(_0x59859c){const _0x17988c=_0x193fe2;0x0!==_0x59859c['errorCode']&&console[_0x17988c(0x172)]('onConnectionLost:'+_0x59859c['errorMessage']);}function onMessageArrived(_0x42db2b){const _0xd64fa0=_0x193fe2;console[_0xd64fa0(0x172)](_0xd64fa0(0x164)+_0x42db2b['payloadString']);}hashid=cyrb53(uid),document['getElementById'](_0x193fe2(0x155))[_0x193fe2(0x177)]=!0x0,client=new Paho['MQTT'][(_0x193fe2(0x15f))](_0x193fe2(0x16d),Number(0x1f40),Math['floor'](0x989680*Math[_0x193fe2(0x15c)]())[_0x193fe2(0x16c)]()),client[_0x193fe2(0x16a)]=onConnectionLost,client[_0x193fe2(0x153)]=onMessageArrived,client[_0x193fe2(0x152)]({'onSuccess':onConnect});
 </script>
 </body>
 </html>
