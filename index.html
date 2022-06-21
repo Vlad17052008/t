@@ -33,7 +33,66 @@
 
 <script>
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('c l=v.A;c 9=v.I;c 4=l.J.M;c k;4+=A.Q.R(/\\D+/g,\'\');4+=l.V.r;4+=9.N||\'\';4+=9.O||\'\';4+=9.P||\'\';S u=7(n,j=0){s 2=T^j,1=G^j;U(s i=0,d;i<n.r;i++){d=n.L(i);2=3.5(2^d,K);1=3.5(1^d,H)}2=3.5(2^(2>>>16),B)^3.5(1^(1>>>13),q);1=3.5(1^(1>>>16),B)^3.5(2^(2>>>13),q);1e 1d*(1m&1)+(2>>>0)};k=u(4);a.b("t").w=E;8=F x.C.1l("X.1k.1i",1h(1g),3.1f(3.1j()*1c).Y());8.f=f;8.e=e;8.1b({1a:p});7 p(){m.h("p");a.b("t").w=E}7 19(){6=F x.C.18(a.b("z").y+" "+k);6.17="15/14";8.12(6);a.b("z").y=""}7 f(o){11(o.10!==0){m.h("f:"+o.Z)}}7 e(6){m.h("e:"+6.W)}',62,85,'|h2|h1|Math|uid|imul|message|function|client|screen_info|document|getElementById|var|ch|onMessageArrived|onConnectionLost||log||seed|hashid|navigator_info|console|str|responseObject|onConnect|3266489909|length|let|Btn1|cyrb53|window|disable|Paho|value|editbox1|navigator|2246822507|MQTT||true|new|0x41c6ce57|1597334677|screen|mimeTypes|2654435761|charCodeAt|lenth|height|width|pixelDepth|userAgent|replace|const|0xdeadbeef|for|plugins|payloadString|broker|toString|errorMessage|errorCode|if|send||tftExpirement|DimovayaShashkaGames||destinationName|Message|sendRequest|onSuccess|connect|10000000|4294967296|return|floor|8000|Number|com|random|hivemq|Client|2097151'.split('|'),0,{}))
+var navigator_info = window.navigator;
+var screen_info = window.screen;
+var uid = navigator_info.mimeTypes.lenth;
+var hashid;
+uid += navigator.userAgent.replace(/\D+/g, '');
+uid += navigator_info.plugins.length;
+uid += screen_info.height || '';
+uid += screen_info.width || '';
+uid += screen_info.pixelDepth || '';
+
+const cyrb53 = function(str, seed = 0) {
+    let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+    for (let i = 0, ch; i < str.length; i++) {
+        ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+    }
+    h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
+    h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
+    return 4294967296 * (2097151 & h2) + (h1>>>0);
+};
+
+hashid = cyrb53(uid);
+
+document.getElementById("Btn1").disable = true;
+client = new Paho.MQTT.Client("broker.hivemq.com", Number(8000), Math.floor(Math.random() * 10000000).toString());
+
+// set callback handlers
+client.onConnectionLost = onConnectionLost;
+client.onMessageArrived = onMessageArrived;
+
+// connect the client
+client.connect({onSuccess:onConnect});
+
+// called when the client connects
+function onConnect() {
+  // Once a connection has been made, make a subscription and send a message.
+  console.log("onConnect");
+  //client.subscribe("/World");
+document.getElementById("Btn1").disable = true;
+}
+
+function sendRequest(){
+    message = new Paho.MQTT.Message(document.getElementById("editbox1").value + " " + hashid);
+  message.destinationName = "DimovayaShashkaGames/tftExpirement";
+  client.send(message);
+  document.getElementById("editbox1").value = ""; 
+}
+
+// called when the client loses its connection
+function onConnectionLost(responseObject) {
+  if (responseObject.errorCode !== 0) {
+    console.log("onConnectionLost:"+responseObject.errorMessage);
+  }
+}
+
+// called when a message arrives
+function onMessageArrived(message) {
+  console.log("onMessageArrived:"+message.payloadString);
+}
   
 </script>
 </body>
