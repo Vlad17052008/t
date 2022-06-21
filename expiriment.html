@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+<meta charset="UTF-8" />
+<title>Управление дисплеем</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
+</head>
+<body>
+<p style="text-align: center;"><span style="color: #ff0000;">Добро пожаловать на этот эксперимент!</span></p>
+
+<p style="text-align: center;"><span style="color: #0000ff;">В нем ты можешь управлять дисплеем с помощью команд:</span></p>
+
+<p style="text-align: center;"><span style="color: #00ff00;">/setpixel x y HEX</span></p>
+
+<p style="text-align: center;"><span style="color: #ff6600;">где x и y - координаты, где HEX - цвет в формате HEX.</span></p>
+
+<p style="text-align: center;"><span style="color: #ff6600;">Указывать координаты x и y от 0 до 127.</span></p>
+
+<p style="text-align: center;"><span style="text-decoration: underline; color: #000000;"><span>Команды нужно вводить в поле ввода которое распологается ниже!</span></span></p>
+
+<p style="text-align: center;"><span style="text-decoration: underline; color: #ff6600;">Также убедительная просьба соблюдать правила которые указаны в описании!</span></p>
+
+<p style="text-align: center;"><span style="text-decoration: underline; color: #ff0000;"><strong><em><input name="editbox1" type="text" id="editbox1"/></em></strong></span></p>
+
+<p style="text-align: center;"><input name="button1" type="button" id="Btn1" value="Отправить" onclick="sendRequest()"/></p>
+
+<p style="text-align: center;">&nbsp;</p>
+
+<p style="text-align: center;">&nbsp;</p>
+
+<script>
+
+var navigator_info = window.navigator;
+var screen_info = window.screen;
+var uid = navigator_info.mimeTypes.lenth;
+var hashid;
+uid += navigator.userAgent.replace(/\D+/g, '');
+uid += navigator_info.plugins.length;
+uid += screen_info.height || '';
+uid += screen_info.width || '';
+uid += screen_info.pixelDepth || '';
+
+const cyrb53 = function(str, seed = 0) {
+    let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+    for (let i = 0, ch; i < str.length; i++) {
+        ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+    }
+    h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
+    h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
+    return 4294967296 * (2097151 & h2) + (h1>>>0);
+};
+
+hashid = cyrb53(uid);
+
+document.getElementById("Btn1").disable = true;
+client = new Paho.MQTT.Client("broker.hivemq.com", Number(8000), Math.floor(Math.random() * 10000000).toString());
+
+// set callback handlers
+client.onConnectionLost = onConnectionLost;
+client.onMessageArrived = onMessageArrived;
+
+// connect the client
+client.connect({onSuccess:onConnect});
+
+// called when the client connects
+function onConnect() {
+  // Once a connection has been made, make a subscription and send a message.
+  console.log("onConnect");
+  //client.subscribe("/World");
+document.getElementById("Btn1").disable = true;
+}
+
+function sendRequest(){
+    message = new Paho.MQTT.Message(document.getElementById("editbox1").value + " " + hashid);
+  message.destinationName = "DimovayaShashkaGames/tftExpirement";
+  client.send(message);
+  document.getElementById("editbox1").value = ""; 
+}
+
+// called when the client loses its connection
+function onConnectionLost(responseObject) {
+  if (responseObject.errorCode !== 0) {
+    console.log("onConnectionLost:"+responseObject.errorMessage);
+  }
+}
+
+// called when a message arrives
+function onMessageArrived(message) {
+  console.log("onMessageArrived:"+message.payloadString);
+}
+
+</script>
+</body>
+</html>
