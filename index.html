@@ -58,7 +58,7 @@ const cyrb53 = function(str, seed = 0) {
 hashid = cyrb53(uid);
 
 document.getElementById("Btn1").disable = true;
-client = new Paho.MQTT.Client("mqtt.eclipse.org", Number(8000), Math.floor(Math.random() * 10000000).toString());
+client = new Paho.MQTT.Client("broker.mqtt-dashboard.com", Number(8000), Math.floor(Math.random() * 10000000).toString());
 
 // set callback handlers
 client.onConnectionLost = onConnectionLost;
