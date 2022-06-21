@@ -6,7 +6,6 @@
 </style>
 <meta charset="UTF-8" />
 <title>Управление дисплеем</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 </head>
 <body>
 <p style="text-align: center;"><span style="color: #ff0000;">Добро пожаловать на этот эксперимент!</span></p>
@@ -33,66 +32,7 @@
 
 <script>
 
-var navigator_info = window.navigator;
-var screen_info = window.screen;
-var uid = navigator_info.mimeTypes.lenth;
-var hashid;
-uid += navigator.userAgent.replace(/\D+/g, '');
-uid += navigator_info.plugins.length;
-uid += screen_info.height || '';
-uid += screen_info.width || '';
-uid += screen_info.pixelDepth || '';
-
-const cyrb53 = function(str, seed = 0) {
-    let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
-    for (let i = 0, ch; i < str.length; i++) {
-        ch = str.charCodeAt(i);
-        h1 = Math.imul(h1 ^ ch, 2654435761);
-        h2 = Math.imul(h2 ^ ch, 1597334677);
-    }
-    h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
-    h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
-    return 4294967296 * (2097151 & h2) + (h1>>>0);
-};
-
-hashid = cyrb53(uid);
-
-document.getElementById("Btn1").disable = true;
-client = new Paho.MQTT.Client("broker.emqx.io", Number(8084), Math.floor(Math.random() * 10000000).toString());
-
-// set callback handlers
-client.onConnectionLost = onConnectionLost;
-client.onMessageArrived = onMessageArrived;
-
-// connect the client
-client.connect({onSuccess:onConnect});
-
-// called when the client connects
-function onConnect() {
-  // Once a connection has been made, make a subscription and send a message.
-  console.log("onConnect");
-  //client.subscribe("/World");
-document.getElementById("Btn1").disable = false;
-}
-
-function sendRequest(){
-    message = new Paho.MQTT.Message(document.getElementById("editbox1").value + " " + hashid);
-  message.destinationName = "DimovayaShashkaGames/tftExpirement";
-  client.send(message);
-  document.getElementById("editbox1").value = ""; 
-}
-
-// called when the client loses its connection
-function onConnectionLost(responseObject) {
-  if (responseObject.errorCode !== 0) {
-    console.log("onConnectionLost:"+responseObject.errorMessage);
-  }
-}
-
-// called when a message arrives
-function onMessageArrived(message) {
-  console.log("onMessageArrived:"+message.payloadString);
-}
+const _0x5ce7db=_0x7889;(function(_0x464b11,_0x4663d1){const _0x170bbf=_0x7889,_0x5e9b99=_0x464b11();while(!![]){try{const _0x562516=parseInt(_0x170bbf(0x1e5))/0x1+parseInt(_0x170bbf(0x1dc))/0x2*(-parseInt(_0x170bbf(0x1e3))/0x3)+parseInt(_0x170bbf(0x1d8))/0x4*(-parseInt(_0x170bbf(0x1f0))/0x5)+parseInt(_0x170bbf(0x1e4))/0x6+parseInt(_0x170bbf(0x1e2))/0x7*(-parseInt(_0x170bbf(0x1df))/0x8)+parseInt(_0x170bbf(0x1e7))/0x9+-parseInt(_0x170bbf(0x1ef))/0xa*(-parseInt(_0x170bbf(0x1da))/0xb);if(_0x562516===_0x4663d1)break;else _0x5e9b99['push'](_0x5e9b99['shift']());}catch(_0x213cbc){_0x5e9b99['push'](_0x5e9b99['shift']());}}}(_0x4860,0xa7317));var hashid,navigator_info=window[_0x5ce7db(0x1ee)],screen_info=window[_0x5ce7db(0x1d9)],uid=navigator_info['mimeTypes'][_0x5ce7db(0x1eb)];uid+=navigator[_0x5ce7db(0x1ea)][_0x5ce7db(0x1e9)](/\D+/g,''),uid+=navigator_info[_0x5ce7db(0x1e8)]['length'],uid+=screen_info[_0x5ce7db(0x1db)]||'',uid+=screen_info[_0x5ce7db(0x1e1)]||'',uid+=screen_info['pixelDepth']||'';const cyrb53=function(_0x689a8d,_0x3b3230=0x0){const _0x5c4dcc=_0x5ce7db;let _0x28e422=0xdeadbeef^_0x3b3230,_0x29107a=0x41c6ce57^_0x3b3230;for(let _0x4a49a3=0x0,_0x313698;_0x4a49a3<_0x689a8d['length'];_0x4a49a3++)_0x313698=_0x689a8d['charCodeAt'](_0x4a49a3),_0x28e422=Math['imul'](_0x28e422^_0x313698,0x9e3779b1),_0x29107a=Math[_0x5c4dcc(0x1e0)](_0x29107a^_0x313698,0x5f356495);return _0x28e422=Math[_0x5c4dcc(0x1e0)](_0x28e422^_0x28e422>>>0x10,0x85ebca6b)^Math['imul'](_0x29107a^_0x29107a>>>0xd,0xc2b2ae35),_0x29107a=Math[_0x5c4dcc(0x1e0)](_0x29107a^_0x29107a>>>0x10,0x85ebca6b)^Math['imul'](_0x28e422^_0x28e422>>>0xd,0xc2b2ae35),0x100000000*(0x1fffff&_0x29107a)+(_0x28e422>>>0x0);};hashid=cyrb53(uid);const theOneFunc=_0x36c900=>{const _0x19dee8=_0x5ce7db;document[_0x19dee8(0x1dd)](_0x19dee8(0x1de))[_0x19dee8(0x1ec)]=_0x36c900;};function _0x4860(){const _0x5c127d=['imul','width','49CxQdNJ','357081LJiDzB','3318318bYKdIH','639954LlSOah','value','5244030ivfnfS','plugins','replace','userAgent','lenth','disabled','editbox1','navigator','70tKlsbW','13665RNKMRr','https://esp8266tftdisplayexpiriment.000webhostapp.com/send.php?data=','732kymEly','screen','1084347OFPRTg','height','2Hoapjd','getElementById','Btn1','1327688kkcHYw'];_0x4860=function(){return _0x5c127d;};return _0x4860();}function _0x7889(_0x2d8e63,_0x313650){const _0x4860a6=_0x4860();return _0x7889=function(_0x788971,_0x471ee9){_0x788971=_0x788971-0x1d8;let _0x50699f=_0x4860a6[_0x788971];return _0x50699f;},_0x7889(_0x2d8e63,_0x313650);}function sendRequest(){const _0x1f0d36=_0x5ce7db;var _0x5e429d=new XMLHttpRequest();_0x5e429d['open']('GET',_0x1f0d36(0x1f1)+document['getElementById']('editbox1')[_0x1f0d36(0x1e6)]+'\x20'+hashid,!0x0),_0x5e429d['send'](),document[_0x1f0d36(0x1dd)](_0x1f0d36(0x1ed))[_0x1f0d36(0x1e6)]='',document['getElementById'](_0x1f0d36(0x1de))[_0x1f0d36(0x1ec)]=!0x0,setTimeout(theOneFunc,0x1388,!0x1);}
 
 </script>
 </body>
