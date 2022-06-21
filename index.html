@@ -6,6 +6,7 @@
 </style>
 <meta charset="UTF-8" />
 <title>Управление дисплеем2</title>
+<meta http-enquiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 </head>
 <body>
@@ -72,7 +73,7 @@ function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
   console.log("onConnect");
   //client.subscribe("/World");
-document.getElementById("Btn1").disable = true;
+document.getElementById("Btn1").disable = false;
 }
 
 function sendRequest(){
