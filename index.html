@@ -58,7 +58,7 @@ const cyrb53 = function(str, seed = 0) {
 hashid = cyrb53(uid);
 
 document.getElementById("Btn1").disable = true;
-client = new Paho.MQTT.Client("broker.emqx.io", Number(1883), Math.floor(Math.random() * 10000000).toString());
+client = new Paho.MQTT.Client("broker.emqx.io", Number(8084), Math.floor(Math.random() * 10000000).toString());
 
 // set callback handlers
 client.onConnectionLost = onConnectionLost;
